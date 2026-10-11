@@ -1,2 +1,21 @@
-<h2>Login</h2>
-<p><em>Login form coming in Phase 7.</em></p>
+<div class="card">
+  <h2>Login</h2>
+
+  <!-- Template-driven form (like the search form) -->
+  <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+    <label>Email</label>
+    <!-- "email" is a built-in validator that checks the format -->
+    <input type="email" name="email" [(ngModel)]="email" #emailInput="ngModel" required email />
+    <p class="error" *ngIf="emailInput.touched && emailInput.errors?.['required']">Email is required.</p>
+    <p class="error" *ngIf="emailInput.touched && emailInput.errors?.['email']">Enter a valid email.</p>
+
+    <label>Password</label>
+    <input type="password" name="password" [(ngModel)]="password" #passwordInput="ngModel" required />
+    <p class="error" *ngIf="passwordInput.touched && passwordInput.errors?.['required']">Password is required.</p>
+
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </form>
+
+  <!-- Error from the server, e.g. wrong password -->
+  <p class="error server-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>

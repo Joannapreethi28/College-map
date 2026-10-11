@@ -6,5 +6,13 @@
        routerLinkActive adds the "active" CSS class to the link of the current page. -->
   <a routerLink="/map" routerLinkActive="active">Map</a>
   <a routerLink="/search" routerLinkActive="active">Search</a>
-  <a routerLink="/login" routerLinkActive="active">Login</a>
+
+  <!-- Only admins see the Admin link -->
+  <a routerLink="/admin" routerLinkActive="active" *ngIf="authService.isAdmin()">Admin</a>
+
+  <!-- Logged out: show Login. Logged in: show the name and a Logout button. -->
+  <a routerLink="/login" routerLinkActive="active" *ngIf="!authService.currentUser">Login</a>
+  <span class="user" *ngIf="authService.currentUser">Hi, {{ authService.currentUser.name }}</span>
+  <!-- (click) is EVENT BINDING: runs logout() when the button is clicked -->
+  <button class="logout" *ngIf="authService.currentUser" (click)="logout()">Logout</button>
 </nav>

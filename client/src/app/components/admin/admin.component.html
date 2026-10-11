@@ -1,2 +1,89 @@
 <h2>Admin</h2>
-<p><em>Admin page coming in Phase 7.</em></p>
+
+<p class="success" *ngIf="message">{{ message }}</p>
+<p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<div class="admin-layout">
+  <!-- ===== The reactive form ===== -->
+  <!-- [formGroup] connects this <form> to blockForm in the TypeScript file -->
+  <form class="card" [formGroup]="blockForm" (ngSubmit)="onSubmit()">
+    <h3>{{ editingCode ? 'Edit block ' + editingCode : 'Add a new block' }}</h3>
+
+    <!-- formControlName connects an input to one FormControl -->
+    <label>Name</label>
+    <input formControlName="name" />
+    <p class="error" *ngIf="showError('name')">Name is required.</p>
+
+    <label>Code</label>
+    <input formControlName="code" placeholder="e.g. MB" />
+    <p class="error" *ngIf="showError('code')">Code is required and must be CAPITAL letters/numbers only.</p>
+
+    <label>Description</label>
+    <textarea formControlName="description" rows="2"></textarea>
+
+    <label class="checkbox"><input type="checkbox" formControlName="hasLift" /> Has a lift</label>
+
+    <!-- formGroupName = the nested "svg" group -->
+    <fieldset formGroupName="svg">
+      <legend>Position on map (map is 800 × 500)</legend>
+      <div class="row">
+        <div><label>X</label><input type="number" formControlName="x" /></div>
+        <div><label>Y</label><input type="number" formControlName="y" /></div>
+        <div><label>Width</label><input type="number" formControlName="w" /></div>
+        <div><label>Height</label><input type="number" formControlName="h" /></div>
+      </div>
+      <p class="error" *ngIf="showError('svg.x') || showError('svg.y')">X must be 0-800 and Y must be 0-500.</p>
+      <p class="error" *ngIf="showError('svg.w') || showError('svg.h')">Width and height must be more than 0.</p>
+    </fieldset>
+
+    <!-- formArrayName = the "rooms" FormArray. Each row is one FormGroup, found by its index i. -->
+    <fieldset formArrayName="rooms">
+      <legend>Rooms ({{ rooms.length }})</legend>
+      <p class="empty" *ngIf="rooms.length === 0">No rooms yet. Click "Add room".</p>
+
+      <div class="room-row" *ngFor="let room of rooms.controls; let i = index" [formGroupName]="i">
+        <input formControlName="number" placeholder="No. e.g. G12" />
+        <input formControlName="name" placeholder="Room name" />
+        <select formControlName="type">
+          <option value="lab">lab</option>
+          <option value="classroom">classroom</option>
+          <option value="office">office</option>
+          <option value="other">other</option>
+        </select>
+        <input type="number" formControlName="floor" placeholder="Floor" />
+        <button type="button" class="small danger" (click)="removeRoom(i)">✕</button>
+        <p class="error full" *ngIf="room.invalid && room.touched">Room number and name are required; floor must be 0 or more.</p>
+      </div>
+
+      <button type="button" class="small" (click)="addRoom()">+ Add room</button>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit">{{ editingCode ? 'Save changes' : 'Add block' }}</button>
+      <button type="button" class="secondary" (click)="resetForm()">{{ editingCode ? 'Cancel' : 'Clear' }}</button>
+    </div>
+  </form>
+
+  <!-- ===== List of blocks ===== -->
+  <div class="card">
+    <h3>Blocks ({{ blocks.length }})</h3>
+    <p class="empty" *ngIf="blocks.length === 0">No blocks yet.</p>
+    <table *ngIf="blocks.length > 0">
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Rooms</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let b of blocks">
+        <td>{{ b.code }}</td>
+        <td>{{ b.name }}</td>
+        <td>{{ b.rooms.length }}</td>
+        <td class="buttons">
+          <button class="small" (click)="editBlock(b)">Edit</button>
+          <button class="small danger" (click)="deleteBlock(b)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

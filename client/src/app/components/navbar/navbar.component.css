@@ -18,6 +18,19 @@
   text-decoration: none;
 }
 
+.user {
+  color: #f5d77a;
+}
+
+.logout {
+  background: transparent;
+  color: white;
+  border: 1px solid #dce3f5;
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
 .navbar a.active {
   color: white;
   font-weight: bold;
