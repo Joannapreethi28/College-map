@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Block } from '../models/block';
+import { SearchResult } from '../models/search-result';
 
 // A SERVICE is a class that holds code shared by many components,
 // here: talking to the /api/blocks part of our Express server.
@@ -29,5 +30,11 @@ export class BlockService {
   // GET /api/blocks/:code
   getBlock(code: string): Observable<Block> {
     return this.http.get<Block>(`${this.apiUrl}/${code}`);
+  }
+
+  // GET /api/search?q=lab
+  // encodeURIComponent makes text with spaces or symbols safe to put in a URL
+  search(q: string): Observable<SearchResult> {
+    return this.http.get<SearchResult>(`http://localhost:3000/api/search?q=${encodeURIComponent(q)}`);
   }
 }

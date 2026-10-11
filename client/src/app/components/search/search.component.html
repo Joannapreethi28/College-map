@@ -1,2 +1,56 @@
 <h2>Search</h2>
-<p><em>Search box coming in Phase 6.</em></p>
+<p class="hint">Find a room, lab or faculty member, e.g. "data science lab", "G12" or "anitha".</p>
+
+<!-- TEMPLATE-DRIVEN FORM: the form and its rules are written here in the HTML.
+     #searchForm="ngForm" gives us a variable for the whole form (to check if it is valid).
+     (ngSubmit) runs onSearch() when the user presses Enter or clicks Search. -->
+<form #searchForm="ngForm" (ngSubmit)="onSearch()" class="search-form">
+  <!-- [(ngModel)] is TWO-WAY BINDING: typing updates "query", and changing "query" updates the box.
+       required and minlength="2" are validation rules.
+       #qInput="ngModel" gives us a variable for this one field (to show its errors). -->
+  <input
+    type="text"
+    name="q"
+    placeholder="Search..."
+    [(ngModel)]="query"
+    #qInput="ngModel"
+    required
+    minlength="2"
+  />
+  <!-- [disabled] is PROPERTY BINDING: the button is disabled while the form is invalid -->
+  <button type="submit" [disabled]="searchForm.invalid || loading">Search</button>
+</form>
+
+<!-- Validation message: only after the user has typed something (dirty) -->
+<p class="error" *ngIf="qInput.dirty && qInput.errors?.['minlength']">Type at least 2 characters.</p>
+<p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+<p *ngIf="loading">Searching...</p>
+
+<!-- Empty state -->
+<p class="empty" *ngIf="noResults()">No results for "{{ searchedFor }}".</p>
+
+<div *ngIf="result && !noResults()">
+  <h3 *ngIf="result.blocks.length > 0">Rooms</h3>
+  <ul class="results">
+    <!-- Nested *ngFor: for each block, list its matching rooms -->
+    <ng-container *ngFor="let b of result.blocks">
+      <li *ngFor="let room of b.rooms">
+        <!-- routerLink goes to the map with this block selected -->
+        <a [routerLink]="['/block', b.code]">
+          <strong>{{ room.number }}</strong> {{ room.name }}
+          <span class="meta">{{ b.name }} ({{ b.code }}) · {{ room.type }}</span>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+
+  <h3 *ngIf="result.faculty.length > 0">Faculty</h3>
+  <ul class="results">
+    <li *ngFor="let f of result.faculty">
+      <a [routerLink]="['/block', f.cabin.blockCode]">
+        <strong>{{ f.name }}</strong> ({{ f.department }})
+        <span class="meta">Cabin: {{ f.cabin.blockCode }} - {{ f.cabin.roomNumber }}</span>
+      </a>
+    </li>
+  </ul>
+</div>
