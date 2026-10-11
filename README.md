@@ -14,7 +14,7 @@ Install these first:
 |---|---|---|
 | Node.js (LTS) | 24 | `node -v` |
 | Angular CLI | 22 | `ng version` (install: `npm install -g @angular/cli`) |
-| MongoDB Community Server | 8 | runs as a Windows service on port 27017 |
+| MongoDB Community Server | 9 | runs as a Windows service on port 27017 |
 | MongoDB Compass (optional) | any | to look at the data |
 
 ## Setup
