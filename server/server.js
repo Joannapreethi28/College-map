@@ -17,6 +17,7 @@ const errorHandler = require('./middleware/errorHandler');
 const blockRoutes = require('./routes/blocks');
 const facultyRoutes = require('./routes/faculty');
 const searchRoutes = require('./routes/search');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/blocks', blockRoutes);
 app.use('/api/faculty', facultyRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/auth', authRoutes);
 
 // If no route above matched, send a 404
 app.use((req, res) => {
