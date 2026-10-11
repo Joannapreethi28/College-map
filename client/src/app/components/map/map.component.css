@@ -1,0 +1,61 @@
+.hint {
+  color: #666;
+  margin-top: -8px;
+}
+
+/* Map on the left (wider), panel on the right */
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* On small screens put the panel under the map */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.campus-map {
+  width: 100%;
+  height: auto;
+}
+
+.ground {
+  fill: #dcefd9;
+}
+
+.block {
+  cursor: pointer;
+}
+
+.block rect {
+  fill: #ffffff;
+  stroke: #1f3c88;
+  stroke-width: 2;
+}
+
+.block text {
+  fill: #1f3c88;
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none; /* clicks go through the text to the block */
+}
+
+/* Hover effect */
+.block:hover rect {
+  fill: #e3e9fb;
+}
+
+/* The selected block (added by [class.selected]) */
+.block.selected rect {
+  fill: #1f3c88;
+  stroke: #f5a623;
+  stroke-width: 4;
+}
+
+.block.selected text {
+  fill: #ffffff;
+}

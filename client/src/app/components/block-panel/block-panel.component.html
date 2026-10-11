@@ -1,1 +1,39 @@
-<p><em>Block details will appear here (Phase 5).</em></p>
+<div class="panel">
+  <!-- *ngIf adds this element to the page only when the condition is true -->
+
+  <!-- Empty state: nothing selected -->
+  <p class="empty" *ngIf="!block && !notFoundCode">Click a block on the map to see its details.</p>
+
+  <!-- The URL had a code that doesn't exist, e.g. /block/ZZ -->
+  <p class="empty" *ngIf="!block && notFoundCode">Block "{{ notFoundCode }}" was not found.</p>
+
+  <div *ngIf="block">
+    <h3>{{ block.name }} <span class="code">{{ block.code }}</span></h3>
+    <p>{{ block.description }}</p>
+    <p class="lift" *ngIf="block.hasLift">Lift available</p>
+
+    <h4>Rooms ({{ block.rooms.length }})</h4>
+
+    <!-- Empty state: block has no rooms -->
+    <p class="empty" *ngIf="block.rooms.length === 0">No rooms added for this block yet.</p>
+
+    <ul class="rooms">
+      <!-- [ngClass] adds a CSS class based on the room type, e.g. "type-lab",
+           so each type gets its own colour -->
+      <li *ngFor="let room of block.rooms" [ngClass]="'type-' + room.type">
+        <strong>{{ room.number }}</strong> {{ room.name }}
+        <span class="meta">{{ room.type }} · {{ floorLabel(room.floor) }}</span>
+      </li>
+    </ul>
+
+    <h4>Faculty ({{ faculty.length }})</h4>
+    <p class="empty" *ngIf="faculty.length === 0">No faculty have a cabin in this block.</p>
+
+    <ul class="faculty">
+      <li *ngFor="let f of faculty">
+        <strong>{{ f.name }}</strong> ({{ f.department }})
+        <span class="meta">Cabin: {{ f.cabin.roomNumber }}</span>
+      </li>
+    </ul>
+  </div>
+</div>

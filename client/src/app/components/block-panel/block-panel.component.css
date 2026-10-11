@@ -1,0 +1,53 @@
+.panel {
+  background: white;
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  margin-top: 0;
+  color: #1f3c88;
+}
+
+.code {
+  font-size: 13px;
+  background: #e3e9fb;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.empty {
+  color: #888;
+  font-style: italic;
+}
+
+.lift {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  background: #f4f6fb;
+  border-left: 5px solid #999;
+}
+
+.meta {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+/* One colour per room type (added by [ngClass]) */
+.type-lab { border-left-color: #1e88e5; }
+.type-classroom { border-left-color: #43a047; }
+.type-office { border-left-color: #fb8c00; }
+.type-other { border-left-color: #8e24aa; }
