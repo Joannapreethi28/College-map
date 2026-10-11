@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlockService } from '../../services/block.service';
 import { Block } from '../../models/block';
@@ -9,7 +9,7 @@ import { BlockPanelComponent } from '../block-panel/block-panel.component';
   // Eager = update the screen automatically whenever this component's data changes
   changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-map',
-  imports: [NgFor, BlockPanelComponent],
+  imports: [NgFor, NgIf, BlockPanelComponent],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css'
 })
@@ -18,6 +18,7 @@ export class MapComponent implements OnInit {
   blocks: Block[] = [];
   selectedBlock: Block | null = null;   // null = nothing selected yet
   notFoundCode = '';                    // set when the URL has a code that doesn't exist
+  errorMessage = '';
 
   // Dependency injection: Angular passes in the services for us.
   // ActivatedRoute = info about the current URL (like the :code part)
@@ -31,16 +32,21 @@ export class MapComponent implements OnInit {
   // ngOnInit runs once, when the component first appears on screen
   ngOnInit(): void {
     // 1. Load all blocks from the API
-    this.blockService.getBlocks().subscribe((data) => {
-      this.blocks = data;
+    this.blockService.getBlocks().subscribe({
+      next: (data) => {
+        this.blocks = data;
 
-      // 2. Only after the blocks arrive, look at the URL.
-      // paramMap gives us the URL parameters, and fires again whenever they change
-      // (e.g. going from /block/MB to /block/CS).
-      this.route.paramMap.subscribe((params) => {
-        const code = params.get('code');   // null on /map
-        this.showBlock(code);
-      });
+        // 2. Only after the blocks arrive, look at the URL.
+        // paramMap gives us the URL parameters, and fires again whenever they change
+        // (e.g. going from /block/MB to /block/CS).
+        this.route.paramMap.subscribe((params) => {
+          const code = params.get('code');   // null on /map
+          this.showBlock(code);
+        });
+      },
+      error: () => {
+        this.errorMessage = 'Could not load the map. Is the server running?';
+      }
     });
   }
 

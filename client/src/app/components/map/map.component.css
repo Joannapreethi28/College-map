@@ -3,6 +3,11 @@
   margin-top: -8px;
 }
 
+.error {
+  color: #c62828;
+  font-weight: bold;
+}
+
 /* Map on the left (wider), panel on the right */
 .layout {
   display: grid;
@@ -39,7 +44,7 @@
 
 .block text {
   fill: #1f3c88;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: bold;
   pointer-events: none; /* clicks go through the text to the block */
 }

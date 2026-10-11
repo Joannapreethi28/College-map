@@ -50,8 +50,13 @@ export class AdminComponent implements OnInit {
   }
 
   loadBlocks(): void {
-    this.blockService.getBlocks().subscribe((data) => {
-      this.blocks = data;
+    this.blockService.getBlocks().subscribe({
+      next: (data) => {
+        this.blocks = data;
+      },
+      error: () => {
+        this.errorMessage = 'Could not load blocks. Is the server running?';
+      }
     });
   }
 
