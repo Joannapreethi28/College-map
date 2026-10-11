@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles: apply to the whole app */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6fb;
+  color: #222;
+}

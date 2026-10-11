@@ -1,0 +1,10 @@
+<nav class="navbar">
+  <!-- {{ }} is INTERPOLATION: shows the value of appName from the class -->
+  <span class="brand">{{ appName }}</span>
+
+  <!-- routerLink changes the URL WITHOUT reloading the page (unlike href).
+       routerLinkActive adds the "active" CSS class to the link of the current page. -->
+  <a routerLink="/map" routerLinkActive="active">Map</a>
+  <a routerLink="/search" routerLinkActive="active">Search</a>
+  <a routerLink="/login" routerLinkActive="active">Login</a>
+</nav>
