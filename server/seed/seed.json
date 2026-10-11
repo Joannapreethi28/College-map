@@ -1,0 +1,137 @@
+{
+  "blocks": [
+    {
+      "name": "Main Block",
+      "code": "MB",
+      "description": "Principal's office, administration and first-year classrooms.",
+      "hasLift": true,
+      "svg": { "x": 40, "y": 40, "w": 200, "h": 110 },
+      "rooms": [
+        { "number": "G01", "name": "Principal's Office", "type": "office", "floor": 0 },
+        { "number": "G02", "name": "Admission Office", "type": "office", "floor": 0 },
+        { "number": "G12", "name": "Data Science Lab", "type": "lab", "floor": 0 },
+        { "number": "F01", "name": "Classroom 1A", "type": "classroom", "floor": 1 },
+        { "number": "F02", "name": "Classroom 1B", "type": "classroom", "floor": 1 },
+        { "number": "F05", "name": "Science & Humanities Staff Room", "type": "office", "floor": 1 }
+      ]
+    },
+    {
+      "name": "CSE Block",
+      "code": "CS",
+      "description": "Computer Science and AI & DS departments.",
+      "hasLift": true,
+      "svg": { "x": 300, "y": 40, "w": 180, "h": 110 },
+      "rooms": [
+        { "number": "G01", "name": "Programming Lab 1", "type": "lab", "floor": 0 },
+        { "number": "G02", "name": "Programming Lab 2", "type": "lab", "floor": 0 },
+        { "number": "F01", "name": "Networks Lab", "type": "lab", "floor": 1 },
+        { "number": "F03", "name": "CSE Staff Room", "type": "office", "floor": 1 },
+        { "number": "F04", "name": "HOD CSE Cabin", "type": "office", "floor": 1 },
+        { "number": "S01", "name": "Classroom 2A", "type": "classroom", "floor": 2 },
+        { "number": "S02", "name": "AI & DS Staff Room", "type": "office", "floor": 2 }
+      ]
+    },
+    {
+      "name": "ECE Block",
+      "code": "EC",
+      "description": "Electronics and Communication department.",
+      "hasLift": false,
+      "svg": { "x": 540, "y": 40, "w": 200, "h": 110 },
+      "rooms": [
+        { "number": "G01", "name": "Digital Electronics Lab", "type": "lab", "floor": 0 },
+        { "number": "G02", "name": "Microprocessor Lab", "type": "lab", "floor": 0 },
+        { "number": "F01", "name": "ECE Staff Room", "type": "office", "floor": 1 },
+        { "number": "F02", "name": "HOD ECE Cabin", "type": "office", "floor": 1 },
+        { "number": "F03", "name": "Classroom 3A", "type": "classroom", "floor": 1 }
+      ]
+    },
+    {
+      "name": "Library",
+      "code": "LB",
+      "description": "Central library with reading hall and digital library.",
+      "hasLift": false,
+      "svg": { "x": 40, "y": 200, "w": 160, "h": 100 },
+      "rooms": [
+        { "number": "G01", "name": "Reading Hall", "type": "other", "floor": 0 },
+        { "number": "G02", "name": "Digital Library", "type": "lab", "floor": 0 },
+        { "number": "G03", "name": "Librarian Office", "type": "office", "floor": 0 }
+      ]
+    },
+    {
+      "name": "Mechanical Block",
+      "code": "ME",
+      "description": "Mechanical Engineering department and workshops.",
+      "hasLift": false,
+      "svg": { "x": 260, "y": 200, "w": 200, "h": 100 },
+      "rooms": [
+        { "number": "G01", "name": "Workshop", "type": "lab", "floor": 0 },
+        { "number": "G02", "name": "CAD Lab", "type": "lab", "floor": 0 },
+        { "number": "F01", "name": "Mechanical Staff Room", "type": "office", "floor": 1 },
+        { "number": "F02", "name": "Classroom 4A", "type": "classroom", "floor": 1 },
+        { "number": "F03", "name": "Classroom 4B", "type": "classroom", "floor": 1 }
+      ]
+    },
+    {
+      "name": "Auditorium",
+      "code": "AU",
+      "description": "Main auditorium for events and seminars.",
+      "hasLift": false,
+      "svg": { "x": 520, "y": 200, "w": 220, "h": 100 },
+      "rooms": [
+        { "number": "G01", "name": "Main Hall", "type": "other", "floor": 0 },
+        { "number": "F01", "name": "Seminar Hall", "type": "other", "floor": 1 }
+      ]
+    },
+    {
+      "name": "Canteen",
+      "code": "CF",
+      "description": "Canteen and stationery store.",
+      "hasLift": false,
+      "svg": { "x": 40, "y": 350, "w": 160, "h": 100 },
+      "rooms": [
+        { "number": "G01", "name": "Food Court", "type": "other", "floor": 0 },
+        { "number": "G02", "name": "Stationery Store", "type": "other", "floor": 0 }
+      ]
+    },
+    {
+      "name": "Admin Block",
+      "code": "AD",
+      "description": "Exam cell, accounts and placement office.",
+      "hasLift": true,
+      "svg": { "x": 260, "y": 350, "w": 200, "h": 100 },
+      "rooms": [
+        { "number": "G01", "name": "Exam Cell", "type": "office", "floor": 0 },
+        { "number": "G02", "name": "Accounts Office", "type": "office", "floor": 0 },
+        { "number": "F01", "name": "Placement Office", "type": "office", "floor": 1 },
+        { "number": "F02", "name": "Training Hall", "type": "classroom", "floor": 1 }
+      ]
+    }
+  ],
+
+  "faculty": [
+    { "name": "Dr. Anitha Kumar", "department": "CSE", "email": "anitha.cse@college.edu", "cabin": { "blockCode": "CS", "roomNumber": "F04" } },
+    { "name": "Mr. Ravi Shankar", "department": "CSE", "email": "ravi.cse@college.edu", "cabin": { "blockCode": "CS", "roomNumber": "F03" } },
+    { "name": "Ms. Priya Nair", "department": "CSE", "email": "priya.cse@college.edu", "cabin": { "blockCode": "CS", "roomNumber": "F03" } },
+    { "name": "Mr. Arun Prakash", "department": "CSE", "email": "arun.cse@college.edu", "cabin": { "blockCode": "CS", "roomNumber": "F03" } },
+    { "name": "Dr. Meena Raj", "department": "AI & DS", "email": "meena.aids@college.edu", "cabin": { "blockCode": "CS", "roomNumber": "S02" } },
+    { "name": "Ms. Divya Suresh", "department": "AI & DS", "email": "divya.aids@college.edu", "cabin": { "blockCode": "MB", "roomNumber": "G12" } },
+    { "name": "Mr. Karthik Raja", "department": "AI & DS", "email": "karthik.aids@college.edu", "cabin": { "blockCode": "CS", "roomNumber": "S02" } },
+    { "name": "Dr. Suresh Babu", "department": "ECE", "email": "suresh.ece@college.edu", "cabin": { "blockCode": "EC", "roomNumber": "F02" } },
+    { "name": "Ms. Lakshmi Devi", "department": "ECE", "email": "lakshmi.ece@college.edu", "cabin": { "blockCode": "EC", "roomNumber": "F01" } },
+    { "name": "Mr. Vignesh Kumar", "department": "ECE", "email": "vignesh.ece@college.edu", "cabin": { "blockCode": "EC", "roomNumber": "F01" } },
+    { "name": "Dr. Ramesh Iyer", "department": "MECH", "email": "ramesh.mech@college.edu", "cabin": { "blockCode": "ME", "roomNumber": "F01" } },
+    { "name": "Mr. Senthil Murugan", "department": "MECH", "email": "senthil.mech@college.edu", "cabin": { "blockCode": "ME", "roomNumber": "F01" } },
+    { "name": "Ms. Kavya Menon", "department": "MECH", "email": "kavya.mech@college.edu", "cabin": { "blockCode": "ME", "roomNumber": "F01" } },
+    { "name": "Dr. Fathima Begum", "department": "Science & Humanities", "email": "fathima.sh@college.edu", "cabin": { "blockCode": "MB", "roomNumber": "F05" } },
+    { "name": "Mr. John Peter", "department": "Science & Humanities", "email": "john.sh@college.edu", "cabin": { "blockCode": "MB", "roomNumber": "F05" } },
+    { "name": "Ms. Sangeetha Ravi", "department": "Science & Humanities", "email": "sangeetha.sh@college.edu", "cabin": { "blockCode": "MB", "roomNumber": "F05" } },
+    { "name": "Mr. Bala Subramanian", "department": "Library", "email": "bala.lib@college.edu", "cabin": { "blockCode": "LB", "roomNumber": "G03" } },
+    { "name": "Ms. Nisha Thomas", "department": "Placement", "email": "nisha.placement@college.edu", "cabin": { "blockCode": "AD", "roomNumber": "F01" } }
+  ],
+
+  "admin": {
+    "name": "Admin",
+    "email": "admin@college.edu",
+    "password": "admin123"
+  }
+}
