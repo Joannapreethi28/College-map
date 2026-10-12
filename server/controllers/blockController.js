@@ -5,6 +5,29 @@
 const Block = require('../models/Block');
 const appEvents = require('../events/appEvents');
 
+// Room numbers must be unique across the WHOLE campus (e.g. "MB-G01" can exist only once).
+// Checks a list of rooms and returns an error message, or '' if every number is free.
+// ownCode = the block being saved, so its own rooms don't count as "taken".
+async function checkRoomNumbers(rooms, ownCode) {
+  const numbers = (rooms || []).map((room) => String(room.number || '').trim().toUpperCase());
+
+  // 1. The same number typed twice in this list?
+  const repeated = numbers.find((number, index) => numbers.indexOf(number) !== index);
+  if (repeated) {
+    return `Room ${repeated} is listed twice`;
+  }
+
+  // 2. Already used by ANOTHER block?
+  // $ne = "not equal" (skip our own block), $in = "matches any number in the list"
+  const otherBlock = await Block.findOne({ code: { $ne: ownCode }, 'rooms.number': { $in: numbers } });
+  if (otherBlock) {
+    const taken = otherBlock.rooms.find((room) => numbers.includes(room.number));
+    return `Room ${taken.number} already exists in ${otherBlock.code}`;
+  }
+
+  return '';
+}
+
 // ---------- Public ----------
 
 // GET /api/blocks  -> all blocks, sorted by name (A to Z)
@@ -40,6 +63,11 @@ async function getBlockByCode(req, res, next) {
 // POST /api/blocks  -> create a new block from the JSON body
 async function createBlock(req, res, next) {
   try {
+    const roomError = await checkRoomNumbers(req.body.rooms, String(req.body.code || '').toUpperCase());
+    if (roomError) {
+      return res.status(400).json({ message: roomError });
+    }
+
     // Mongoose checks the schema rules (required, enum...) before saving.
     // If a rule fails it throws a ValidationError, which errorHandler turns into 400.
     const block = await Block.create(req.body);
@@ -61,6 +89,13 @@ async function updateBlock(req, res, next) {
 
     if (!block) {
       return res.status(404).json({ message: `Block ${code} not found` });
+    }
+
+    if (req.body.rooms) {
+      const roomError = await checkRoomNumbers(req.body.rooms, code);
+      if (roomError) {
+        return res.status(400).json({ message: roomError });
+      }
     }
 
     // Copy the new values onto the block, then save (save() runs the schema rules again)
@@ -103,10 +138,12 @@ async function addRoom(req, res, next) {
       return res.status(404).json({ message: `Block ${code} not found` });
     }
 
-    // Room numbers must be unique inside a block
-    const alreadyThere = block.rooms.find((room) => room.number === req.body.number);
-    if (alreadyThere) {
-      return res.status(400).json({ message: `Room ${req.body.number} already exists in ${code}` });
+    // The new room's number must not be used anywhere on campus.
+    // We check it together with this block's existing rooms: step 1 catches a repeat
+    // inside this block, step 2 catches a repeat in any other block.
+    const roomError = await checkRoomNumbers([...block.rooms, req.body], code);
+    if (roomError) {
+      return res.status(400).json({ message: roomError });
     }
 
     // rooms is an array inside the document, so we just push and save

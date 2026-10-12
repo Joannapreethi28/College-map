@@ -39,10 +39,11 @@
     <!-- formArrayName = the "rooms" FormArray. Each row is one FormGroup, found by its index i. -->
     <fieldset formArrayName="rooms">
       <legend>Rooms ({{ rooms.length }})</legend>
+      <p class="hint">Room numbers are unique across campus: block code + floor + number, e.g. MB-G12 (G = ground, F = first, S = second).</p>
       <p class="empty" *ngIf="rooms.length === 0">No rooms yet. Click "Add room".</p>
 
       <div class="room-row" *ngFor="let room of rooms.controls; let i = index" [formGroupName]="i">
-        <input formControlName="number" placeholder="No. e.g. G12" />
+        <input formControlName="number" placeholder="e.g. TB-G01" />
         <input formControlName="name" placeholder="Room name" />
         <select formControlName="type">
           <option value="lab">lab</option>

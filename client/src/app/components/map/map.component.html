@@ -1,43 +1,86 @@
-<h2>Campus Map</h2>
-<p class="hint">Click a block to see its rooms and faculty.</p>
+<div class="page-head">
+  <div>
+    <h2>Campus Map</h2>
+    <p class="hint">Click a building to see its rooms and faculty.</p>
+  </div>
+</div>
 <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
 
 <div class="layout">
-  <!-- SVG = a way to draw shapes in HTML.
-       viewBox="0 0 800 500" sets up our drawing area: 800 wide, 500 tall.
-       The x/y/w/h numbers stored in the database use this same scale. -->
-  <svg class="campus-map" viewBox="0 0 800 500">
-    <!-- Background = campus ground -->
-    <rect class="ground" x="0" y="0" width="800" height="500" rx="12"></rect>
+  <div class="map-card">
+    <!-- SVG = a way to draw shapes in HTML.
+         viewBox="0 0 800 500" sets up our drawing area: 800 wide, 500 tall.
+         The x/y/w/h numbers stored in the database use this same scale. -->
+    <svg class="campus-map" viewBox="0 0 800 500">
+      <!-- ===== Decoration (fixed drawing, NOT from the database) ===== -->
 
-    <!-- *ngFor repeats this <g> (group) once for every block from the database -->
-    <g
-      *ngFor="let b of blocks"
-      class="block"
-      [class.selected]="selectedBlock?.code === b.code"
-      (click)="selectBlock(b)"
-    >
-      <!-- [attr.x] is PROPERTY BINDING to an attribute:
-           it sets the rectangle's x to the value of b.svg.x -->
-      <rect
-        [attr.x]="b.svg.x"
-        [attr.y]="b.svg.y"
-        [attr.width]="b.svg.w"
-        [attr.height]="b.svg.h"
-        rx="8"
-      ></rect>
+      <!-- Grass -->
+      <rect class="grass" x="0" y="0" width="800" height="500" rx="14"></rect>
 
-      <!-- Label in the middle of the rectangle -->
-      <text
-        [attr.x]="b.svg.x + b.svg.w / 2"
-        [attr.y]="b.svg.y + b.svg.h / 2"
-        text-anchor="middle"
-        dominant-baseline="middle"
+      <!-- Sports ground with a running track -->
+      <rect class="field" x="185" y="388" width="175" height="84" rx="10"></rect>
+      <ellipse class="track" cx="272" cy="430" rx="72" ry="28"></ellipse>
+      <text class="place-label" x="272" y="434" text-anchor="middle">Sports Ground</text>
+
+      <!-- Parking -->
+      <rect class="parking" x="445" y="390" width="140" height="78" rx="6"></rect>
+      <line class="parking-line" x1="480" y1="390" x2="480" y2="420"></line>
+      <line class="parking-line" x1="515" y1="390" x2="515" y2="420"></line>
+      <line class="parking-line" x1="550" y1="390" x2="550" y2="420"></line>
+      <text class="place-label" x="515" y="452" text-anchor="middle">P  Parking</text>
+
+      <!-- Pond -->
+      <ellipse class="pond" cx="690" cy="428" rx="62" ry="32"></ellipse>
+      <text class="place-label water" x="690" y="432" text-anchor="middle">Pond</text>
+
+      <!-- Roads: one across the middle, one from the main gate to the top -->
+      <rect class="road" x="0" y="222" width="800" height="36"></rect>
+      <rect class="road" x="382" y="0" width="36" height="500"></rect>
+      <line class="road-line" x1="0" y1="240" x2="800" y2="240"></line>
+      <line class="road-line" x1="400" y1="0" x2="400" y2="455"></line>
+
+      <!-- Main gate at the bottom of the road -->
+      <rect class="gate-post" x="372" y="476" width="10" height="24"></rect>
+      <rect class="gate-post" x="418" y="476" width="10" height="24"></rect>
+      <text class="gate-label" x="400" y="470" text-anchor="middle">MAIN GATE</text>
+
+      <!-- Trees: *ngFor over a fixed list of positions in the .ts file -->
+      <circle *ngFor="let t of trees" class="tree" [attr.cx]="t.x" [attr.cy]="t.y" r="11"></circle>
+
+      <!-- Compass -->
+      <g class="compass">
+        <circle cx="765" cy="185" r="15"></circle>
+        <text x="765" y="190" text-anchor="middle">N</text>
+      </g>
+
+      <!-- ===== Buildings (FROM THE DATABASE) ===== -->
+      <!-- *ngFor repeats this <g> (group) once for every block -->
+      <g
+        *ngFor="let b of blocks"
+        class="block"
+        [class.selected]="selectedBlock?.code === b.code"
+        (click)="selectBlock(b)"
       >
-        {{ b.name }}
-      </text>
-    </g>
-  </svg>
+        <!-- <title> shows a small tooltip when you hover -->
+        <title>{{ b.name }} ({{ b.rooms.length }} rooms)</title>
+
+        <!-- Shadow: the same rectangle moved a little down and right -->
+        <rect class="shadow" [attr.x]="b.svg.x + 4" [attr.y]="b.svg.y + 5" [attr.width]="b.svg.w" [attr.height]="b.svg.h" rx="6"></rect>
+
+        <!-- [attr.x] is PROPERTY BINDING to an attribute:
+             it sets the rectangle's x to the value of b.svg.x -->
+        <rect class="building" [attr.x]="b.svg.x" [attr.y]="b.svg.y" [attr.width]="b.svg.w" [attr.height]="b.svg.h" rx="6"></rect>
+
+        <!-- Name and code in the middle of the building -->
+        <text class="name" [attr.x]="b.svg.x + b.svg.w / 2" [attr.y]="b.svg.y + b.svg.h / 2 - 4" text-anchor="middle">
+          {{ b.name }}
+        </text>
+        <text class="code" [attr.x]="b.svg.x + b.svg.w / 2" [attr.y]="b.svg.y + b.svg.h / 2 + 16" text-anchor="middle">
+          {{ b.code }}
+        </text>
+      </g>
+    </svg>
+  </div>
 
   <!-- [block]="selectedBlock" passes the selected block DOWN into the panel (an @Input) -->
   <app-block-panel [block]="selectedBlock" [notFoundCode]="notFoundCode"></app-block-panel>

@@ -11,7 +11,9 @@ const mongoose = require('mongoose');
 // so there is no need for a separate rooms collection.
 const roomSchema = new mongoose.Schema(
   {
-    number: { type: String, required: true },   // e.g. "G12"
+    // Unique across the whole campus: block code + floor letter + number, e.g. "MB-G12"
+    // (G = ground, F = first, S = second). The controller checks it is not used elsewhere.
+    number: { type: String, required: true, uppercase: true, trim: true },
     name: { type: String, required: true },     // e.g. "Data Science Lab"
     type: {
       type: String,

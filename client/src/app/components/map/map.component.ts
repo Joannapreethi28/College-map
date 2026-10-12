@@ -20,6 +20,15 @@ export class MapComponent implements OnInit {
   notFoundCode = '';                    // set when the URL has a code that doesn't exist
   errorMessage = '';
 
+  // Decoration only: where to draw trees on the map (not stored in the database)
+  trees = [
+    { x: 50, y: 170 }, { x: 95, y: 195 }, { x: 145, y: 165 }, { x: 195, y: 192 },
+    { x: 245, y: 168 }, { x: 300, y: 190 }, { x: 350, y: 165 },
+    { x: 455, y: 168 }, { x: 505, y: 195 }, { x: 560, y: 165 }, { x: 615, y: 192 },
+    { x: 675, y: 168 }, { x: 720, y: 195 },
+    { x: 610, y: 470 }, { x: 772, y: 455 }, { x: 30, y: 480 }
+  ];
+
   // Dependency injection: Angular passes in the services for us.
   // ActivatedRoute = info about the current URL (like the :code part)
   // Router = lets us change the URL from code

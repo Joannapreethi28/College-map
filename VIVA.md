@@ -40,7 +40,7 @@ Angular (4200) --HTTP/JSON--> Express (3000) --Mongoose--> MongoDB (campus_nav)
 1. **Map** (`/map`): "Every rectangle comes from MongoDB." Click **CSE Block**: it highlights, the URL becomes `/block/CS`, and the panel shows rooms (coloured by type) and faculty.
 2. **Search**: type `data science lab` and click the result. The map opens with **Main Block** highlighted.
 3. **Login** as `admin@college.edu` / `admin123`. The navbar shows **Admin** and **Hi, Admin**.
-4. **Admin**: add a block (name, code `TB`, x 520, y 350, w 220, h 100) with one room, then click **Map** to show it appearing. Go back, **Edit** it, then **Delete** it.
+4. **Admin**: add a block (name, code `TB`, x 630, y 280, w 135, h 90; this is the empty spot next to the Auditorium) with one room numbered `TB-G01`, then click **Map** to show it appearing. Go back, **Edit** it, then **Delete** it.
 5. Open `server/audit.log` to show the created, updated and deleted lines.
 6. (If asked) **Logout**, then type `/admin` in the URL: you are redirected to `/login`.
 

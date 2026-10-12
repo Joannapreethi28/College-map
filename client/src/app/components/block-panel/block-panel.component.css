@@ -1,8 +1,10 @@
 .panel {
   background: white;
-  border-radius: 10px;
+  border-radius: 14px;
   padding: 16px 20px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-height: 80vh;
+  overflow-y: auto; /* long room lists scroll inside the panel */
 }
 
 h3 {
@@ -46,8 +48,29 @@ li {
   color: #666;
 }
 
-/* One colour per room type (added by [ngClass]) */
+.room-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: white;
+  background: #999;
+  text-transform: capitalize;
+}
+
+/* One colour per room type (the type-... class is added by [ngClass]) */
 .type-lab { border-left-color: #1e88e5; }
 .type-classroom { border-left-color: #43a047; }
 .type-office { border-left-color: #fb8c00; }
 .type-other { border-left-color: #8e24aa; }
+
+.type-lab .badge { background: #1e88e5; }
+.type-classroom .badge { background: #43a047; }
+.type-office .badge { background: #fb8c00; }
+.type-other .badge { background: #8e24aa; }

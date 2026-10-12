@@ -21,8 +21,11 @@
       <!-- [ngClass] adds a CSS class based on the room type, e.g. "type-lab",
            so each type gets its own colour -->
       <li *ngFor="let room of block.rooms" [ngClass]="'type-' + room.type">
-        <strong>{{ room.number }}</strong> {{ room.name }}
-        <span class="meta">{{ room.type }} · {{ floorLabel(room.floor) }}</span>
+        <div class="room-top">
+          <strong>{{ room.name }}</strong>
+          <span class="badge">{{ room.type }}</span>
+        </div>
+        <span class="meta">{{ room.number }} · {{ floorLabel(room.floor) }}</span>
       </li>
     </ul>
 

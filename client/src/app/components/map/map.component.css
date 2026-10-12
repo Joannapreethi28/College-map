@@ -1,6 +1,10 @@
+h2 {
+  margin: 0;
+}
+
 .hint {
-  color: #666;
-  margin-top: -8px;
+  color: #667;
+  margin: 4px 0 16px;
 }
 
 .error {
@@ -23,44 +27,96 @@
   }
 }
 
+.map-card {
+  background: white;
+  padding: 12px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
 .campus-map {
   width: 100%;
   height: auto;
+  display: block;
 }
 
-.ground {
-  fill: #dcefd9;
+/* ---------- Decoration ---------- */
+
+.grass { fill: #cfe6c4; }
+.field { fill: #9fcf8c; }
+.track { fill: none; stroke: #ffffff; stroke-width: 3; }
+.parking { fill: #d6d6d6; }
+.parking-line { stroke: #ffffff; stroke-width: 2; }
+.pond { fill: #9fd3f0; stroke: #6bb6e0; stroke-width: 2; }
+.road { fill: #b9b4a8; }
+.road-line { stroke: #ffffff; stroke-width: 2; stroke-dasharray: 12 10; }
+.gate-post { fill: #6d4c41; }
+.tree { fill: #6aa84f; stroke: #4e8a37; stroke-width: 2; }
+
+.place-label {
+  fill: #3d5a33;
+  font-size: 12px;
+  font-weight: bold;
 }
+
+.place-label.water { fill: #2a6f97; }
+
+.gate-label {
+  fill: #ffffff;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.compass circle { fill: #ffffff; stroke: #555; stroke-width: 2; }
+.compass text { font-size: 14px; font-weight: bold; fill: #c62828; }
+
+/* ---------- Buildings ---------- */
 
 .block {
   cursor: pointer;
 }
 
-.block rect {
-  fill: #ffffff;
-  stroke: #1f3c88;
+.block .shadow {
+  fill: rgba(0, 0, 0, 0.18);
+}
+
+.block .building {
+  fill: #f6e7c8;
+  stroke: #9c7a43;
   stroke-width: 2;
+  transition: fill 0.15s;
 }
 
 .block text {
-  fill: #1f3c88;
-  font-size: 17px;
+  pointer-events: none; /* clicks go through the text to the building */
+}
+
+.block .name {
+  fill: #4a3b22;
+  font-size: 15px;
   font-weight: bold;
-  pointer-events: none; /* clicks go through the text to the block */
+}
+
+.block .code {
+  fill: #8a6d3b;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 /* Hover effect */
-.block:hover rect {
-  fill: #e3e9fb;
+.block:hover .building {
+  fill: #ffdca0;
 }
 
-/* The selected block (added by [class.selected]) */
-.block.selected rect {
+/* The selected building (added by [class.selected]) */
+.block.selected .building {
   fill: #1f3c88;
   stroke: #f5a623;
   stroke-width: 4;
 }
 
-.block.selected text {
+.block.selected .name,
+.block.selected .code {
   fill: #ffffff;
 }
