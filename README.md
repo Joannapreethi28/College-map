@@ -54,7 +54,7 @@ cd client
 ng serve
 ```
 
-Open **http://localhost:4200**.
+Open **http://localhost:4200**. The app opens at the **login page**. Click **Create an account** to sign up, then log in to see the map.
 
 ## Default admin login
 
@@ -62,7 +62,7 @@ Open **http://localhost:4200**.
 |---|---|
 | admin@college.edu | admin123 |
 
-The admin is created by `npm run seed`. New users from the register API are always visitors.
+The admin is created by `npm run seed`. Accounts made on the sign up page are always visitors. Note: `npm run seed` wipes all users, so sign up again after re-seeding.
 
 ## Useful commands (in `server/`)
 

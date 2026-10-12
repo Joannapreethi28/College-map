@@ -1,0 +1,32 @@
+<div class="card">
+  <h2>Create an account</h2>
+  <p class="sub">Sign up once, then log in to use the campus map.</p>
+
+  <!-- Template-driven form. autocomplete="new-password" lets the browser suggest and save a password. -->
+  <form #registerForm="ngForm" (ngSubmit)="onRegister()">
+    <label>Name</label>
+    <input type="text" name="name" autocomplete="name" [(ngModel)]="name" #nameInput="ngModel" required />
+    <p class="error" *ngIf="nameInput.touched && nameInput.errors?.['required']">Name is required.</p>
+
+    <label>Email</label>
+    <input type="email" name="email" autocomplete="username" [(ngModel)]="email" #emailInput="ngModel" required email />
+    <p class="error" *ngIf="emailInput.touched && emailInput.errors?.['required']">Email is required.</p>
+    <p class="error" *ngIf="emailInput.touched && emailInput.errors?.['email']">Enter a valid email.</p>
+
+    <label>Password</label>
+    <input type="password" name="password" autocomplete="new-password" [(ngModel)]="password" #passwordInput="ngModel" required minlength="6" />
+    <p class="error" *ngIf="passwordInput.touched && passwordInput.errors?.['required']">Password is required.</p>
+    <p class="error" *ngIf="passwordInput.touched && passwordInput.errors?.['minlength']">Password must be at least 6 characters.</p>
+
+    <label>Confirm password</label>
+    <input type="password" name="confirmPassword" autocomplete="new-password" [(ngModel)]="confirmPassword" required />
+    <p class="error" *ngIf="passwordsDontMatch()">Passwords do not match.</p>
+
+    <button type="submit" [disabled]="registerForm.invalid || passwordsDontMatch()">Sign up</button>
+  </form>
+
+  <!-- Error from the server, e.g. email already registered -->
+  <p class="error server-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <p class="switch">Already have an account? <a routerLink="/login">Log in</a></p>
+</div>

@@ -1,21 +1,27 @@
 <div class="card">
-  <h2>Login</h2>
+  <h2>📍 Welcome to Campus Navigator</h2>
+  <p class="sub">Log in to see the campus map.</p>
 
-  <!-- Template-driven form (like the search form) -->
+  <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+  <!-- Template-driven form (like the search form).
+       autocomplete="..." lets the browser offer to save and fill in the password. -->
   <form #loginForm="ngForm" (ngSubmit)="onLogin()">
     <label>Email</label>
     <!-- "email" is a built-in validator that checks the format -->
-    <input type="email" name="email" [(ngModel)]="email" #emailInput="ngModel" required email />
+    <input type="email" name="email" autocomplete="username" [(ngModel)]="email" #emailInput="ngModel" required email />
     <p class="error" *ngIf="emailInput.touched && emailInput.errors?.['required']">Email is required.</p>
     <p class="error" *ngIf="emailInput.touched && emailInput.errors?.['email']">Enter a valid email.</p>
 
     <label>Password</label>
-    <input type="password" name="password" [(ngModel)]="password" #passwordInput="ngModel" required />
+    <input type="password" name="password" autocomplete="current-password" [(ngModel)]="password" #passwordInput="ngModel" required />
     <p class="error" *ngIf="passwordInput.touched && passwordInput.errors?.['required']">Password is required.</p>
 
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <button type="submit" [disabled]="loginForm.invalid">Log in</button>
   </form>
 
   <!-- Error from the server, e.g. wrong password -->
   <p class="error server-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <p class="switch">New here? <a routerLink="/register">Create an account</a></p>
 </div>

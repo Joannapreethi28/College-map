@@ -28,6 +28,12 @@ export class AuthService {
     return this.http.post<User>(`${this.apiUrl}/login`, { email: email, password: password });
   }
 
+  // POST /api/auth/register. The server always creates a "visitor" account
+  // and stores only the HASH of the password in MongoDB.
+  register(name: string, email: string, password: string): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/register`, { name: name, email: email, password: password });
+  }
+
   saveUser(user: User): void {
     this.currentUser = user;
     localStorage.setItem(this.storageKey, JSON.stringify(user)); // object -> text
@@ -36,6 +42,10 @@ export class AuthService {
   logout(): void {
     this.currentUser = null;
     localStorage.removeItem(this.storageKey);
+  }
+
+  isLoggedIn(): boolean {
+    return this.currentUser !== null;
   }
 
   isAdmin(): boolean {

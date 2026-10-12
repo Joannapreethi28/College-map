@@ -132,11 +132,14 @@ Conventions: JSON only; correct status codes (200, 201, 400, 401, 403, 404, 500)
 
 | Path | Component | Access |
 |---|---|---|
-| `/map` (default) | Map + BlockPanel | public |
-| `/block/:code` | BlockPanel for that block | public |
-| `/search` | Search | public |
-| `/login` | Login | public |
+| `/login` (default) | Login | public |
+| `/register` | Sign up (creates a visitor account) | public |
+| `/map` | Map + BlockPanel | `authGuard` (any logged-in user) |
+| `/block/:code` | Map with that block selected | `authGuard` |
+| `/search` | Search | `authGuard` |
 | `/admin` | Admin | `adminGuard` |
+
+Changed on request after Phase 8: the app opens at the login page, users sign up and log in first, and then see the map.
 
 ## 9. Auth approach (keep simple, state the limits honestly)
 

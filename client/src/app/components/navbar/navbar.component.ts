@@ -21,6 +21,6 @@ export class NavbarComponent {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/map']);
+    this.router.navigate(['/login']);
   }
 }

@@ -24,10 +24,11 @@
 | `@Input` (parent to child) | `[block]="selectedBlock"`: map passes the block to `block-panel` |
 | Directives | `*ngFor` (map blocks, rooms, results), `*ngIf` (empty states, navbar), `[ngClass]` (room colours in `block-panel.component.html`) |
 | Services and DI | `services/*.service.ts` with `@Injectable`, injected through constructors |
-| Template-driven forms | `search.component.html`, `login.component.html` (`ngModel`, `required`, `minlength`, `email`) |
+| Template-driven forms | `search.component.html`, `login.component.html`, `register.component.html` (`ngModel`, `required`, `minlength`, `email`) |
 | Reactive forms | `admin.component.ts` (`FormGroup`, `FormControl`, `Validators`, nested group `svg`, `FormArray` for rooms) |
 | Routing and navigation | `app.routes.ts`, route parameter `:code` read with `ActivatedRoute` in `map.component.ts`, `router.navigate()` |
-| Route guard | `guards/admin.guard.ts` used on `/admin` |
+| Route guards | `guards/auth.guard.ts` (any logged-in user) on `/map`, `/block/:code`, `/search`; `guards/admin.guard.ts` on `/admin` |
+| Query parameters | `router.navigate(['/login'], { queryParams })` in `register.component.ts`, read with `queryParamMap` in `login.component.ts` |
 | Lifecycle hooks | `ngOnInit` (map, admin), `ngOnChanges` (block-panel) |
 
 ## Unit 3: Node.js
