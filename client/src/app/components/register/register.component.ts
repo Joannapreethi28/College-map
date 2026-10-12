@@ -40,8 +40,13 @@ export class RegisterComponent {
         this.router.navigate(['/login'], { queryParams: { registered: this.email } });
       },
       error: (err) => {
-        // e.g. "Email is already registered"
-        this.errorMessage = err.error?.message || 'Could not reach the server';
+        // status 0 = no answer at all: the Express server (port 3000) is not running
+        if (err.status === 0) {
+          this.errorMessage = 'Cannot reach the server. Start it with "npm run dev" in the server folder.';
+        } else {
+          // e.g. "Email is already registered"
+          this.errorMessage = err.error?.message || 'Something went wrong';
+        }
       }
     });
   }

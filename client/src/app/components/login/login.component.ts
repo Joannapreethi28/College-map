@@ -50,8 +50,13 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/map']); // everyone goes to the map after logging in
       },
       error: (err) => {
-        // err.error is the JSON the server sent, e.g. { message: 'Invalid email or password' }
-        this.errorMessage = err.error?.message || 'Could not reach the server';
+        // status 0 = no answer at all: the Express server (port 3000) is not running
+        if (err.status === 0) {
+          this.errorMessage = 'Cannot reach the server. Start it with "npm run dev" in the server folder.';
+        } else {
+          // err.error is the JSON the server sent, e.g. { message: 'Invalid email or password' }
+          this.errorMessage = err.error?.message || 'Something went wrong';
+        }
       }
     });
   }
